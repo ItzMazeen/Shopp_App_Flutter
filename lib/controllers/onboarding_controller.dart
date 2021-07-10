@@ -16,7 +16,7 @@ class OnboardingController extends GetxController {
       //go home page
       Get.to(BottomBarScreen());
     } else
-      pageController.nextPage(duration: 300.milliseconds, curve: Curves.ease);
+      pageController.nextPage(duration: 100.milliseconds, curve: Curves.ease);
   }
 
   List<OnboardingInfo> onboarding = [
