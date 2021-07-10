@@ -33,10 +33,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.6
   get: ^4.1.4
+  list_tile_switch: ^0.0.2
+  flutter_icons: ^1.1.0
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
  
 
 # For information on the generic Dart part of this file, see the
