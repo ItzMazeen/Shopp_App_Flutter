@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:shop/bottom_bar.dart';
 import 'package:shop/controllers/onboarding_controller.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +9,24 @@ class Onboarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          // ignore: deprecated_member_use
+          FlatButton(
+            onPressed: () => Get.to(BottomBarScreen()),
+            child: Text(
+              'Skip',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.red,
+              ),
+            ),
+          )
+        ],
+      ),
       body: SafeArea(
         child: Stack(
           children: [

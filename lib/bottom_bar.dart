@@ -5,69 +5,121 @@ import 'package:shop/screens/home.dart';
 import 'package:shop/screens/search.dart';
 import 'package:shop/screens/user.dart';
 
-class BottomBarScreen extends StatefulWidget {
-  static const routeName = "/BottomBarScreen";
+import 'consts/my_icons.dart';
 
+class BottomBarScreen extends StatefulWidget {
+  @override
   _BottomBarScreenState createState() => _BottomBarScreenState();
 }
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
-  List _pages = [
-    HomeScreen(),
-    FeedsScreen(),
-    SearchScreen(),
-    CartScreen(),
-    UserScreen(),
-  ];
-  int _selectectedindex = 0;
-  void _selectedPage(int index) {
+  List<Map<String, Object>> _pages;
+  int _selectedPageIndex = 0;
+
+  @override
+  void initState() {
+    _pages = [
+      {
+        'page': HomeScreen(),
+      },
+      {
+        'page': FeedsScreen(),
+      },
+      {
+        'page': SearchScreen(),
+      },
+      {
+        'page': CartScreen(),
+      },
+      {
+        'page': UserScreen(),
+      },
+    ];
+    super.initState();
+  }
+
+  void _selectPage(int index) {
     setState(() {
-      _selectectedindex = index;
+      _selectedPageIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectectedindex],
+      body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomAppBar(
-        notchMargin: 3,
-        clipBehavior: Clip.antiAlias,
+        // color: Colors.white,
         shape: CircularNotchedRectangle(),
+        notchMargin: 0.01,
+        clipBehavior: Clip.antiAlias,
         child: Container(
-          decoration:
-              BoxDecoration(border: Border(top: BorderSide(width: 0.5))),
-          child: BottomNavigationBar(
-            onTap: _selectedPage,
-            backgroundColor: Theme.of(context).primaryColor,
-            unselectedItemColor: Theme.of(context).textSelectionColor,
-            selectedItemColor: Colors.yellow[700],
-            currentIndex: _selectectedindex,
-            items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.rss_feed), label: 'Feed'),
-              BottomNavigationBarItem(
-                  activeIcon: null, icon: Icon(null), label: 'Search'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_bag), label: 'Cart'),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: 'User')
-            ],
+          height: kBottomNavigationBarHeight * 0.98,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                top: BorderSide(
+                  color: Colors.grey,
+                  width: 0.5,
+                ),
+              ),
+            ),
+            child: BottomNavigationBar(
+              onTap: _selectPage,
+              backgroundColor: Theme.of(context).primaryColor,
+              // ignore: deprecated_member_use
+              unselectedItemColor: Theme.of(context).textSelectionColor,
+              selectedItemColor: Colors.yellow[700],
+              currentIndex: _selectedPageIndex,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(MyAppIcons.home),
+                  // ignore: deprecated_member_use
+                  title: Text('Home'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(MyAppIcons.rss),
+                  // ignore: deprecated_member_use
+                  title: Text('Feeds'),
+                ),
+                BottomNavigationBarItem(
+                  activeIcon: null,
+                  icon: Icon(null),
+                  // ignore: deprecated_member_use
+                  title: Text('Search'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    MyAppIcons.cart,
+                  ),
+                  // ignore: deprecated_member_use
+                  title: Text('Cart'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(MyAppIcons.user),
+                  // ignore: deprecated_member_use
+                  title: Text('User'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.yellow[700],
-        tooltip: 'Search',
-        elevation: 5,
-        child: (Icon(Icons.search)),
-        onPressed: () {
-          setState(() {
-            _selectectedindex = 2;
-          });
-        },
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FloatingActionButton(
+          hoverElevation: 10,
+          splashColor: Colors.grey,
+          tooltip: 'Search',
+          elevation: 4,
+          child: Icon(MyAppIcons.search),
+          onPressed: () => setState(() {
+            _selectedPageIndex = 2;
+          }),
+        ),
       ),
     );
   }
